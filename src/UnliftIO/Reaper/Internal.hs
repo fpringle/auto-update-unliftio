@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK not-home #-}
+
 module UnliftIO.Reaper.Internal (Reaper (..)) where
 
 -- | A data structure to hold reaper APIs.
@@ -10,14 +12,14 @@ data Reaper m workload item = Reaper
   -- ^ Modify the workload. The resulting workload is returned.
   --
   --   If there is no reaper thread, the modifier will not be applied and
-  --   'reaperEmpty' will be returned.
+  --   'UnliftIO.Reaper.reaperEmpty' will be returned.
   --
   --   If the reaper is currently executing jobs, those jobs will not be in
   --   the given workload and the workload might appear empty.
   --
   --   If all jobs are removed by the modifier, the reaper thread will not be
   --   killed. The reaper thread will only terminate if 'reaperKill' is called
-  --   or the result of 'reaperAction' satisfies 'reaperNull'.
+  --   or the result of 'UnliftIO.Reaper.reaperAction' satisfies 'UnliftIO.Reaper.reaperNull'.
   --
   --  @since 0.1.0
   , reaperStop :: m workload

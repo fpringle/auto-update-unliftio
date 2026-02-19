@@ -16,7 +16,7 @@ import Data.Functor.Identity
 data UpdateSettings m a = UpdateSettings
   { updateFreq :: Int
   -- ^ Microseconds between update calls. Same considerations as
-  -- 'threadDelay' apply.
+  -- 'Control.Concurrent.threadDelay' apply.
   --
   -- Default: 1000000 microseconds (1 second)
   --

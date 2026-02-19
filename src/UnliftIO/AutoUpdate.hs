@@ -3,11 +3,11 @@
 {- | In a multithreaded environment, sharing results of actions can dramatically improve performance.
  For example, web servers need to return the current time with each HTTP response.
  For a high-volume server, it's much faster for a dedicated thread to run every
- second, and write the current time to a shared 'IORef', than it is for each
- request to make its own call to 'getCurrentTime'.
+ second, and write the current time to a shared 'Data.IORef.IORef', than it is for each
+ request to make its own call to 'Data.Time.Clock.getCurrentTime'.
 
  But for a low-volume server, whose request frequency is less than once per
- second, that approach will result in /more/ calls to 'getCurrentTime' than
+ second, that approach will result in /more/ calls to 'Data.Time.Clock.getCurrentTime' than
  necessary, and worse, kills idle GC.
 
  This library solves that problem by allowing you to define actions which will

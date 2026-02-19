@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK not-home #-}
+
 module UnliftIO.AutoUpdate.Internal
   ( -- * Debugging
     UpdateState (..)

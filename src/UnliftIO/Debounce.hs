@@ -7,10 +7,10 @@
  Example usage:
 
  @
- > printString <- 'mkDebounce' 'defaultDebounceSettings'
-                  { 'debounceAction' = putStrLn "Running action"
-                  , 'debounceFreq' = 5000000 -- 5 seconds
-                  , 'debounceEdge' = 'DI.trailingEdge' -- Trigger on the trailing edge
+ > printString <- 'mkDebounce' 'DI.defaultDebounceSettings'
+                  { 'DI.debounceAction' = putStrLn "Running action"
+                  , 'DI.debounceFreq' = 5000000 -- 5 seconds
+                  , 'DI.debounceEdge' = 'DI.trailingEdge' -- Trigger on the trailing edge
                   }
  > printString
  Running action
@@ -38,6 +38,7 @@ module UnliftIO.Debounce
   , DI.debounceThreadName
 
     -- ** Edge types
+  , DI.DebounceEdge
   , DI.leadingEdge
   , DI.leadingMuteEdge
   , DI.trailingEdge
@@ -50,7 +51,7 @@ import UnliftIO (MonadUnliftIO)
 import UnliftIO.Concurrent (newMVar, threadDelay)
 import qualified UnliftIO.Debounce.Internal as DI
 
-{- | Default value for creating a 'DebounceSettings'.
+{- | Default value for creating a 'DI.DebounceSettings'.
 
  @since 0.1.0
 -}
@@ -65,7 +66,7 @@ defaultDebounceSettings =
 
 {- | Generate an action which will trigger the debounced action to be performed.
 
- /N.B. The generated action will always immediately return, regardless of the 'debounceFreq',/
+ /N.B. The generated action will always immediately return, regardless of the 'DI.debounceFreq',/
  /as the debounced action (and the delay\/cooldown) is always performed in a separate thread./
 
  @since 0.1.0

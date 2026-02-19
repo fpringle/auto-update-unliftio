@@ -1,4 +1,5 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# OPTIONS_HADDOCK not-home #-}
 
 -- | Unstable API which exposes internals for testing.
 module UnliftIO.Debounce.Internal
@@ -30,11 +31,11 @@ import UnliftIO.STM (atomically, newTVarIO, readTVar, readTVarIO, writeTVar)
 
 {- | Settings to control how debouncing should work.
 
- This should be constructed using 'defaultDebounceSettings' and record
+ This should be constructed using 'UnliftIO.Debounce.defaultDebounceSettings' and record
  update syntax, e.g.:
 
  @
- let settings = 'defaultDebounceSettings' { 'debounceAction' = flushLog }
+ let settings = 'UnliftIO.Debounce.defaultDebounceSettings' { 'debounceAction' = flushLog }
  @
 
  @since 0.1.0
