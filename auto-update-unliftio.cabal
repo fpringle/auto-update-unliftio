@@ -35,7 +35,7 @@ common warnings
 common deps
   build-depends:
     , base >= 4 && < 5
-    , unliftio
+    , unliftio >= 0.2.1.0 && < 0.3
 
 library
   import:
