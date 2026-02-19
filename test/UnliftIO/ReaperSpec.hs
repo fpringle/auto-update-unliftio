@@ -1,3 +1,5 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+
 module UnliftIO.ReaperSpec (spec) where
 
 import Control.Concurrent

@@ -37,44 +37,10 @@ common deps
     , base >= 4 && < 5
     , unliftio
 
-common extensions
-  default-extensions:
-    BangPatterns
-    DeriveGeneric
-    DerivingVia 
-    FlexibleContexts
-    FlexibleInstances
-    GADTs
-    InstanceSigs
-    LambdaCase
-    MultiParamTypeClasses
-    NamedFieldPuns
-    OverloadedStrings
-    PackageImports
-    RecordWildCards
-    ScopedTypeVariables
-    TupleSections
-    TypeApplications
-    ViewPatterns
-    RankNTypes
-    UndecidableInstances
-    KindSignatures
-    DataKinds
-    StandaloneKindSignatures
-    AllowAmbiguousTypes
-    DefaultSignatures
-    PolyKinds
-    TypeFamilies
-    ConstraintKinds
-    StandaloneDeriving
-    Arrows
-    TypeOperators
-
 library
   import:
       warnings
     , deps
-    , extensions
   exposed-modules:
       UnliftIO.AutoUpdate
       UnliftIO.AutoUpdate.Internal
@@ -87,7 +53,6 @@ library
 
       UnliftIO.Reaper
       UnliftIO.Reaper.Internal
-  -- other-extensions:
   hs-source-dirs:   src
   default-language: Haskell2010
 
@@ -95,13 +60,11 @@ test-suite auto-update-unliftio-test
   import:
       warnings
     , deps
-    , extensions
   default-language: Haskell2010
   other-modules:
       UnliftIO.AutoUpdateSpec
       UnliftIO.DebounceSpec
       UnliftIO.ReaperSpec
-  -- other-extensions:
   type:             exitcode-stdio-1.0
   hs-source-dirs:   test
   main-is:          Spec.hs
