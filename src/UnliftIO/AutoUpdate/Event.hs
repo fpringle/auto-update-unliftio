@@ -34,7 +34,7 @@ mkAutoUpdate = mkAutoUpdateThings $ \g _ _ -> g
  updated value, or run the update action in the current thread if
  the first time or the provided modify action after that.
 
- @since 0.1.4
+ @since 0.1.0
 -}
 mkAutoUpdateWithModify :: MonadUnliftIO m => UpdateSettings m a -> (a -> m a) -> m (m a)
 mkAutoUpdateWithModify = mkAutoUpdateThingsWithModify (\g _ _ -> g)

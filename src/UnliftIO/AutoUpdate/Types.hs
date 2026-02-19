@@ -36,7 +36,7 @@ data UpdateSettings m a = UpdateSettings
   --
   -- Default: @"AutoUpdate"@
   --
-  -- @since 0.2.2
+  -- @since 0.1.0
   }
 
 {- | Default value for creating an 'UpdateSettings'.

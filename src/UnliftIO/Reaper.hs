@@ -60,7 +60,7 @@ import UnliftIO.Reaper.Internal
  be a list of @item@s. This is encouraged by 'defaultReaperSettings' and
  'mkListAction'.
 
- @since 0.1.1
+ @since 0.1.0
 -}
 data ReaperSettings m workload item = ReaperSettings
   { reaperAction :: workload -> m (workload -> workload)
@@ -75,44 +75,44 @@ data ReaperSettings m workload item = ReaperSettings
   -- temporary workload. This is incredibly useless; you should
   -- definitely override this default.
   --
-  -- @since 0.1.1
+  -- @since 0.1.0
   , reaperDelay :: {-# UNPACK #-} !Int
   -- ^ Number of microseconds to delay between calls of 'reaperAction'.
   --
   -- Default: 30 seconds.
   --
-  -- @since 0.1.1
+  -- @since 0.1.0
   , reaperCons :: item -> workload -> workload
   -- ^ Add an item onto a workload.
   --
   -- Default: list consing.
   --
-  -- @since 0.1.1
+  -- @since 0.1.0
   , reaperNull :: workload -> Bool
   -- ^ Check if a workload is empty, in which case the worker thread
   -- will shut down.
   --
   -- Default: 'null'.
   --
-  -- @since 0.1.1
+  -- @since 0.1.0
   , reaperEmpty :: workload
   -- ^ An empty workload.
   --
   -- Default: empty list.
   --
-  -- @since 0.1.1
+  -- @since 0.1.0
   , reaperThreadName :: String
   -- ^ Label of the thread spawned by the reaper.
   --
   -- Default: @"Reaper"@.
   --
-  -- @since 0.2.2
+  -- @since 0.1.0
   }
 
 {- | Default @ReaperSettings@ value, biased towards having a list of work
  items.
 
- @since 0.1.1
+ @since 0.1.0
 -}
 defaultReaperSettings :: ReaperSettings Identity [item] item
 defaultReaperSettings =
@@ -136,7 +136,7 @@ data State workload
  new items to the workload. Spawning of reaper threads will be handled
  for you automatically.
 
- @since 0.1.1
+ @since 0.1.0
 -}
 mkReaper :: MonadUnliftIO m => ReaperSettings m workload item -> m (Reaper m workload item)
 mkReaper settings@ReaperSettings {..} = do
@@ -234,7 +234,7 @@ reaper settings@ReaperSettings {..} stateRef tidRef = do
  return either a new work item, or @Nothing@ if the work item is
  expired.
 
- @since 0.1.1
+ @since 0.1.0
 -}
 mkListAction ::
   Monad m =>

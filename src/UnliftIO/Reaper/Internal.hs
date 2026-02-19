@@ -19,7 +19,7 @@ data Reaper m workload item = Reaper
   --   killed. The reaper thread will only terminate if 'reaperKill' is called
   --   or the result of 'reaperAction' satisfies 'reaperNull'.
   --
-  --  @since 0.2.0
+  --  @since 0.1.0
   , reaperStop :: m workload
   -- ^ Stopping the reaper thread if exists.
   --   The current workload is returned.

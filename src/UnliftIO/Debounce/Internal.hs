@@ -37,7 +37,7 @@ import UnliftIO.STM (atomically, newTVarIO, readTVar, readTVarIO, writeTVar)
  let settings = 'defaultDebounceSettings' { 'debounceAction' = flushLog }
  @
 
- @since 0.1.2
+ @since 0.1.0
 -}
 data DebounceSettings m = DebounceSettings
   { debounceFreq :: Int
@@ -45,7 +45,7 @@ data DebounceSettings m = DebounceSettings
   --
   -- Default: 1 second (1000000)
   --
-  -- @since 0.1.2
+  -- @since 0.1.0
   , debounceAction :: m ()
   -- ^ Action to be performed.
   --
@@ -53,26 +53,26 @@ data DebounceSettings m = DebounceSettings
   --
   -- Default: does nothing.
   --
-  -- @since 0.1.2
+  -- @since 0.1.0
   , debounceEdge :: DebounceEdge
   -- ^ Whether to perform the action on the leading edge or trailing edge of
   -- the timeout.
   --
   -- Default: 'leadingEdge'.
   --
-  -- @since 0.1.6
+  -- @since 0.1.0
   , debounceThreadName :: String
   -- ^ Label of the thread spawned when debouncing.
   --
   -- Default: @"Debounce"@.
   --
-  -- @since 0.2.2
+  -- @since 0.1.0
   }
 
 {- | Setting to control whether the action happens at the leading and/or trailing
  edge of the timeout.
 
- @since 0.1.6
+ @since 0.1.0
 -}
 data DebounceEdge
   = -- | Perform the action immediately, and then begin a cooldown period.
@@ -104,7 +104,7 @@ data DebounceEdge
  >  ....... ....... .......    .......
  > X       X       X          X
 
- @since 0.1.6
+ @since 0.1.0
 -}
 leadingEdge :: DebounceEdge
 leadingEdge = Leading
@@ -122,7 +122,7 @@ leadingEdge = Leading
  >  .......    .......
  > X          X
 
- @since 0.2.3
+ @since 0.1.0
 -}
 leadingMuteEdge :: DebounceEdge
 leadingMuteEdge = LeadingMute
@@ -142,7 +142,7 @@ leadingMuteEdge = LeadingMute
          X           X
  @
 
- @since 0.1.6
+ @since 0.1.0
 -}
 trailingEdge :: DebounceEdge
 trailingEdge = Trailing
@@ -166,7 +166,7 @@ trailingEdge = Trailing
          X                   X
  @
 
- @since 0.2.3
+ @since 0.1.0
 -}
 trailingDelayEdge :: DebounceEdge
 trailingDelayEdge = TrailingDelay

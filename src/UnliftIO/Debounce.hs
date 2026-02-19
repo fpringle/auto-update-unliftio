@@ -21,7 +21,7 @@
 
  See the fast-logger package ("System.Log.FastLogger") for real-world usage.
 
- @since 0.1.2
+ @since 0.1.0
 -}
 module UnliftIO.Debounce
   ( -- * Creation
@@ -52,7 +52,7 @@ import qualified UnliftIO.Debounce.Internal as DI
 
 {- | Default value for creating a 'DebounceSettings'.
 
- @since 0.1.2
+ @since 0.1.0
 -}
 defaultDebounceSettings :: DI.DebounceSettings Identity
 defaultDebounceSettings =
@@ -68,7 +68,7 @@ defaultDebounceSettings =
  /N.B. The generated action will always immediately return, regardless of the 'debounceFreq',/
  /as the debounced action (and the delay\/cooldown) is always performed in a separate thread./
 
- @since 0.1.2
+ @since 0.1.0
 -}
 mkDebounce :: MonadUnliftIO m => DI.DebounceSettings m -> m (m ())
 mkDebounce settings = do
