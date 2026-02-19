@@ -2,7 +2,11 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE RecordWildCards #-}
 
-{- | This module provides the ability to create reapers: dedicated cleanup
+{- | This is an almost direct copy of [Control.Reaper](https://hackage.haskell.org/package/auto-update/docs/Control-Reaper.html)
+ from the /auto-update/ package. The salient difference is that this module allows us to define cleanup threads in arbitrary
+ monads using 'MonadUnliftIO'.
+
+ This module provides the ability to create reapers: dedicated cleanup
  threads. These threads will automatically spawn and die based on the
  presence of a workload to process on. Example uses include:
 

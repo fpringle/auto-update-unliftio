@@ -1,4 +1,8 @@
-{- | Debounce an action, ensuring it doesn't occur more than once for a given
+{- | This is an almost direct copy of [Control.Debounce](https://hackage.haskell.org/package/auto-update/docs/Control-Debounce.html)
+ from the /auto-update/ package. The salient difference is that this module allows us to debounce actions in arbitrary
+ monads using 'MonadUnliftIO'.
+
+ Debounce an action, ensuring it doesn't occur more than once for a given
  period of time.
 
  This is useful as an optimization, for example to ensure that logs are only

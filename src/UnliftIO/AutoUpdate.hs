@@ -1,6 +1,10 @@
 {-# LANGUAGE CPP #-}
 
-{- | In a multithreaded environment, sharing results of actions can dramatically improve performance.
+{- | This is an almost direct copy of [Control.AutoUpdate](https://hackage.haskell.org/package/auto-update/docs/Control-AutoUpdate.html)
+ from the /auto-update/ package. The salient difference is that this module allows us to define auto-updating actions in arbitrary
+ monads using 'MonadUnliftIO'.
+
+ In a multithreaded environment, sharing results of actions can dramatically improve performance.
  For example, web servers need to return the current time with each HTTP response.
  For a high-volume server, it's much faster for a dedicated thread to run every
  second, and write the current time to a shared 'Data.IORef.IORef', than it is for each
@@ -27,7 +31,7 @@
  currentTime <- getTime
  @
 
- For more examples, <http://www.yesodweb.com/blog/2014/08/announcing-auto-update see the blog post introducing this library>.
+ For more examples, <http://www.yesodweb.com/blog/2014/08/announcing-auto-update see the blog post introducing the original library>.
 -}
 module UnliftIO.AutoUpdate
   ( -- * Type
