@@ -1,23 +1,40 @@
 cabal-version:      3.0
 name:               auto-update-unliftio
 version:            0.1.0.0
--- synopsis:
--- description:
+synopsis:           auto-update unlifted to MonadUnliftIO
+description:        Efficiently run periodic, on-demand actions, in instances of [MonadUnliftIO](https://hackage-content.haskell.org/package/unliftio-core/docs/Control-Monad-IO-Unlift.html#t:MonadUnliftIO)
 license:            BSD-3-Clause
 license-file:       LICENSE
 author:             Frederick Pringle
 maintainer:         frederick.pringle@fpringle.com
+category:           Control
 copyright:          Copyright(c) Frederick Pringle 2026
 homepage:           https://github.com/fpringle/auto-update-unliftio
 build-type:         Simple
 extra-doc-files:    CHANGELOG.md
+
+tested-with:
+    GHC == 8.8.4
+  , GHC == 8.10.7
+  , GHC == 9.0.2
+  , GHC == 9.2.8
+  , GHC == 9.4.5
+  , GHC == 9.6.1
+  , GHC == 9.6.7
+  , GHC == 9.8.2
+  , GHC == 9.10.2
+  , GHC == 9.12.2
+
+source-repository head
+  type:           git
+  location:       https://github.com/fpringle/auto-update-unliftio
 
 common warnings
   ghc-options: -Wall -Wno-unused-do-bind
 
 common deps
   build-depends:
-    , base >= 4
+    , base >= 4 && < 5
     , unliftio
 
 common extensions
