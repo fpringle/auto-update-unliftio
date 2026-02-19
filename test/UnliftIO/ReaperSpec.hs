@@ -1,40 +1,42 @@
 module UnliftIO.ReaperSpec (spec) where
 
--- import Control.Concurrent
--- import UnliftIO.Reaper
--- import Data.IORef
+import Control.Concurrent
+import Data.IORef
 import Test.Hspec
-
--- import Test.Hspec.QuickCheck
+import Test.Hspec.QuickCheck
+import UnliftIO.Reaper
 
 spec :: Spec
-spec = return ()
+spec = do
+  prop "works" $ \(is :: [Int]) -> do
+    reaper <-
+      mkReaper
+        defaultReaperSettings
+          { reaperAction = action
+          , reaperDelay = 1000
+          }
 
---   prop "works" $ \is -> do
---     reaper <- mkReaper defaultReaperSettings
---         { reaperAction = action
---         , reaperDelay = 1000
---         }
+    let mkTestCase i = do
+          ref <- newIORef 0
+          let expected = (abs i `mod` 10) + 1
+          reaperAdd reaper (expected, ref)
+          return (expected, ref)
+    testCases <- mapM mkTestCase is
 
---     let mkTestCase i = do
---             ref <- newIORef 0
---             let expected = (abs i `mod` 10) + 1
---             reaperAdd reaper (expected, ref)
---             return (expected, ref)
---     testCases <- mapM mkTestCase is
+    let test (expected, ref) = do
+          actual <- readIORef ref
+          actual `shouldBe` (expected :: Int)
+    threadDelay 100000
+    mapM_ test testCases
+    [] <- reaperRead reaper
+    return ()
 
---     let test (expected, ref) = do
---             actual <- readIORef ref
---             actual `shouldBe` (expected :: Int)
---     threadDelay 100000
---     mapM_ test testCases
---     [] <- reaperRead reaper
---     return ()
+type Item = (Int, IORef Int)
 
--- type Item = (Int, IORef Int)
-
--- action = mkListAction $ \(i, ref) -> do
---     modifyIORef ref succ
---     return $ if i > 1
---              then Just (pred i, ref)
---              else Nothing
+action :: [Item] -> IO ([Item] -> [Item])
+action = mkListAction $ \(i, ref) -> do
+  modifyIORef ref succ
+  return $
+    if i > 1
+      then Just (pred i, ref)
+      else Nothing
