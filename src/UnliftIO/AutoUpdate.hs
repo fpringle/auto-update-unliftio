@@ -57,6 +57,11 @@ import qualified UnliftIO.AutoUpdate.Thread as Thread
 
 import GHC.Event
 
+{- | Generate an action which will either read from an automatically
+ updated value, or run the update action in the current thread.
+
+ @since 0.1.0
+-}
 mkAutoUpdate :: MonadUnliftIO m => UpdateSettings m a -> m (m a)
 mkAutoUpdate settings = do
     mmgr <- liftIO getSystemEventManager
@@ -64,6 +69,12 @@ mkAutoUpdate settings = do
       Nothing -> Thread.mkAutoUpdate settings
       Just _m -> Event.mkAutoUpdate settings
 
+{- | Generate an action which will either read from an automatically
+ updated value, or run the update action in the current thread if
+ the first time or the provided modify action after that.
+
+ @since 0.1.0
+-}
 mkAutoUpdateWithModify :: MonadUnliftIO m => UpdateSettings m a -> (a -> m a) -> m (m a)
 mkAutoUpdateWithModify settings f = do
     mmgr <- liftIO getSystemEventManager
