@@ -41,16 +41,13 @@ mkAutoUpdateWithModify = mkAutoUpdateThingsWithModify (\g _ _ -> g)
 
 --------------------------------------------------------------------------------
 
-{- FOURMOLU_DISABLE -}
-data UpdateState m a =
-    UpdateState
-    { usUpdateAction_   :: a -> m a
-    , usLastResult_     :: IORef a
-    , usIntervalMicro_  :: Int
-    , usTimeHasCome_    :: TVar Bool
-    , usDeleteTimeout_  :: IORef (m ())
-    }
-{- FOURMOLU_ENABLE -}
+data UpdateState m a = UpdateState
+  { usUpdateAction_ :: a -> m a
+  , usLastResult_ :: IORef a
+  , usIntervalMicro_ :: Int
+  , usTimeHasCome_ :: TVar Bool
+  , usDeleteTimeout_ :: IORef (m ())
+  }
 
 --------------------------------------------------------------------------------
 
