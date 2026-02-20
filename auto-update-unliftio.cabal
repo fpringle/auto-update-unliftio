@@ -12,6 +12,7 @@ copyright:          Copyright(c) Frederick Pringle 2026
 homepage:           https://github.com/fpringle/auto-update-unliftio
 build-type:         Simple
 extra-doc-files:    CHANGELOG.md
+                    README.md
 
 tested-with:
     GHC == 8.8.4
