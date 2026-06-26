@@ -41,7 +41,6 @@ module UnliftIO.AutoUpdate
     -- * Accessors
   , updateAction
   , updateFreq
-  , updateSpawnThreshold
   , updateThreadName
 
     -- * Creation

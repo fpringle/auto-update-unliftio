@@ -21,10 +21,6 @@ data UpdateSettings m a = UpdateSettings
   -- Default: 1000000 microseconds (1 second)
   --
   -- @since 0.1.0
-  , updateSpawnThreshold :: Int
-  -- ^ Obsoleted field.
-  --
-  -- @since 0.1.0
   , updateAction :: m a
   -- ^ Action to be performed to get the current value.
   --
@@ -47,7 +43,6 @@ defaultUpdateSettings :: UpdateSettings Identity ()
 defaultUpdateSettings =
   UpdateSettings
     { updateFreq = 1000000
-    , updateSpawnThreshold = 3
     , updateAction = pure ()
     , updateThreadName = "AutoUpdate"
     }

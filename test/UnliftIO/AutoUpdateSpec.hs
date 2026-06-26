@@ -18,7 +18,6 @@ spec = return ()
 --       next <- mkAutoUpdate defaultUpdateSettings
 --           { updateAction = atomicModifyIORef ref $ \i ->
 --               let i' = succ i in i' `seq` (i', i')
---           , updateSpawnThreshold = st
 --           , updateFreq = 10000
 --           }
 
