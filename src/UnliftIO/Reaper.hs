@@ -143,7 +143,7 @@ data State workload
 
  @since 0.1.0
 -}
-mkReaper :: MonadUnliftIO m => ReaperSettings m workload item -> m (Reaper m workload item)
+mkReaper :: (MonadUnliftIO m) => ReaperSettings m workload item -> m (Reaper m workload item)
 mkReaper settings@ReaperSettings {..} = do
   stateRef <- newIORef NoReaper
   tidRef <- newIORef Nothing
@@ -175,7 +175,7 @@ mkReaper settings@ReaperSettings {..} = do
       forM_ mtid killThread
 
 add ::
-  MonadUnliftIO m =>
+  (MonadUnliftIO m) =>
   ReaperSettings m workload item ->
   IORef (State workload) ->
   IORef (Maybe ThreadId) ->
@@ -192,7 +192,7 @@ add settings@ReaperSettings {..} stateRef tidRef item =
       in  (Workload wl', return ())
 
 spawn ::
-  MonadUnliftIO m =>
+  (MonadUnliftIO m) =>
   ReaperSettings m workload item ->
   IORef (State workload) ->
   IORef (Maybe ThreadId) ->
@@ -203,7 +203,7 @@ spawn settings stateRef tidRef = do
   writeIORef tidRef $ Just tid
 
 reaper ::
-  MonadUnliftIO m =>
+  (MonadUnliftIO m) =>
   ReaperSettings m workload item ->
   IORef (State workload) ->
   IORef (Maybe ThreadId) ->
@@ -242,7 +242,7 @@ reaper settings@ReaperSettings {..} stateRef tidRef = do
  @since 0.1.0
 -}
 mkListAction ::
-  Monad m =>
+  (Monad m) =>
   (item -> m (Maybe item')) ->
   [item] ->
   m ([item'] -> [item'])

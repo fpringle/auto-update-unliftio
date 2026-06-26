@@ -75,7 +75,7 @@ defaultDebounceSettings =
 
  @since 0.1.0
 -}
-mkDebounce :: MonadUnliftIO m => DI.DebounceSettings m -> m (m ())
+mkDebounce :: (MonadUnliftIO m) => DI.DebounceSettings m -> m (m ())
 mkDebounce settings = do
   baton <- newMVar ()
   DI.mkDebounceInternal baton threadDelay settings

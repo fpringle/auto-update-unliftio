@@ -174,7 +174,7 @@ trailingDelayEdge = TrailingDelay
 
 mkDebounceInternal ::
   forall m.
-  MonadUnliftIO m =>
+  (MonadUnliftIO m) =>
   MVar () ->
   (Int -> m ()) ->
   DebounceSettings m ->
@@ -309,5 +309,5 @@ mkDebounceInternal baton delayFn (DebounceSettings freq action edge name) =
       tid <- mask_ $ forkIO act
       liftIO $ labelThread tid name
 
-ignoreExc :: MonadUnliftIO m => m () -> m ()
+ignoreExc :: (MonadUnliftIO m) => m () -> m ()
 ignoreExc = handle $ \(_ :: SomeException) -> pure ()

@@ -33,7 +33,7 @@ import UnliftIO.MVar
 
  @since 0.1.0
 -}
-mkAutoUpdate :: MonadUnliftIO m => UpdateSettings m a -> m (m a)
+mkAutoUpdate :: (MonadUnliftIO m) => UpdateSettings m a -> m (m a)
 mkAutoUpdate us = mkAutoUpdateHelper us Nothing
 
 {- | Generate an action which will either read from an automatically
@@ -42,10 +42,10 @@ mkAutoUpdate us = mkAutoUpdateHelper us Nothing
 
  @since 0.1.0
 -}
-mkAutoUpdateWithModify :: MonadUnliftIO m => UpdateSettings m a -> (a -> m a) -> m (m a)
+mkAutoUpdateWithModify :: (MonadUnliftIO m) => UpdateSettings m a -> (a -> m a) -> m (m a)
 mkAutoUpdateWithModify us f = mkAutoUpdateHelper us (Just f)
 
-mkAutoUpdateHelper :: MonadUnliftIO m => UpdateSettings m a -> Maybe (a -> m a) -> m (m a)
+mkAutoUpdateHelper :: (MonadUnliftIO m) => UpdateSettings m a -> Maybe (a -> m a) -> m (m a)
 mkAutoUpdateHelper us updateActionModify = do
   -- A baton to tell the worker thread to generate a new value.
   needsRunning <- newEmptyMVar
@@ -134,5 +134,5 @@ mkAutoUpdateHelper us updateActionModify = do
  actions will complete successfully. This simply defers the exception until
  the value is forced.
 -}
-catchSome :: MonadUnliftIO m => m a -> m a
+catchSome :: (MonadUnliftIO m) => m a -> m a
 catchSome act = UnliftIO.Exception.catch act $ \e -> pure $ throw (e :: SomeException)

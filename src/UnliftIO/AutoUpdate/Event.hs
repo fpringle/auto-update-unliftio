@@ -27,7 +27,7 @@ import UnliftIO.STM
 
  @since 0.1.0
 -}
-mkAutoUpdate :: MonadUnliftIO m => UpdateSettings m a -> m (m a)
+mkAutoUpdate :: (MonadUnliftIO m) => UpdateSettings m a -> m (m a)
 mkAutoUpdate = mkAutoUpdateThings $ \g _ _ -> g
 
 {- | Generate an action which will either read from an automatically
@@ -36,7 +36,7 @@ mkAutoUpdate = mkAutoUpdateThings $ \g _ _ -> g
 
  @since 0.1.0
 -}
-mkAutoUpdateWithModify :: MonadUnliftIO m => UpdateSettings m a -> (a -> m a) -> m (m a)
+mkAutoUpdateWithModify :: (MonadUnliftIO m) => UpdateSettings m a -> (a -> m a) -> m (m a)
 mkAutoUpdateWithModify = mkAutoUpdateThingsWithModify (\g _ _ -> g)
 
 --------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ data UpdateState m a = UpdateState
 --------------------------------------------------------------------------------
 
 mkAutoUpdateThings ::
-  MonadUnliftIO m =>
+  (MonadUnliftIO m) =>
   (m a -> m () -> UpdateState m a -> b) ->
   UpdateSettings m a ->
   m b
@@ -60,7 +60,7 @@ mkAutoUpdateThings mk settings@UpdateSettings {..} =
   mkAutoUpdateThingsWithModify mk settings (const updateAction)
 
 mkAutoUpdateThingsWithModify ::
-  MonadUnliftIO m =>
+  (MonadUnliftIO m) =>
   (m a -> m () -> UpdateState m a -> b) ->
   UpdateSettings m a ->
   (a -> m a) ->
@@ -88,22 +88,22 @@ mkAutoUpdateThingsWithModify mk settings update1 = do
  2
  >>> closeState
 -}
-mkClosableAutoUpdate :: MonadUnliftIO m => UpdateSettings m a -> m (m a, m ())
+mkClosableAutoUpdate :: (MonadUnliftIO m) => UpdateSettings m a -> m (m a, m ())
 mkClosableAutoUpdate = mkAutoUpdateThings $ \g c _ -> (g, c)
 
 -- | provide `UpdateState` for debugging
-mkClosableAutoUpdate' :: MonadUnliftIO m => UpdateSettings m a -> m (m a, m (), UpdateState m a)
+mkClosableAutoUpdate' :: (MonadUnliftIO m) => UpdateSettings m a -> m (m a, m (), UpdateState m a)
 mkClosableAutoUpdate' = mkAutoUpdateThings (,,)
 
 --------------------------------------------------------------------------------
 
-mkDeleteTimeout :: MonadUnliftIO m => TVar Bool -> Int -> m (m ())
+mkDeleteTimeout :: (MonadUnliftIO m) => TVar Bool -> Int -> m (m ())
 mkDeleteTimeout thc micro = do
   mgr <- liftIO getSystemTimerManager
   key <- liftIO $ registerTimeout mgr micro (atomically $ writeTVar thc True)
   pure $ liftIO $ unregisterTimeout mgr key
 
-openUpdateState :: MonadUnliftIO m => UpdateSettings m a -> (a -> m a) -> m (UpdateState m a)
+openUpdateState :: (MonadUnliftIO m) => UpdateSettings m a -> (a -> m a) -> m (UpdateState m a)
 openUpdateState UpdateSettings {..} update1 = do
   thc <- newTVarIO False
   UpdateState update1
@@ -112,18 +112,18 @@ openUpdateState UpdateSettings {..} update1 = do
     <*> pure thc
     <*> (newIORef =<< mkDeleteTimeout thc updateFreq)
 
-closeUpdateState :: MonadUnliftIO m => UpdateState m a -> m ()
+closeUpdateState :: (MonadUnliftIO m) => UpdateState m a -> m ()
 closeUpdateState UpdateState {..} = do
   join $ readIORef usDeleteTimeout_
 
-onceOnTimeHasCome :: MonadUnliftIO m => UpdateState m a -> m () -> m ()
+onceOnTimeHasCome :: (MonadUnliftIO m) => UpdateState m a -> m () -> m ()
 onceOnTimeHasCome UpdateState {..} action = do
   join . atomically $ do
     timeHasCome <- readTVar usTimeHasCome_
     when timeHasCome $ writeTVar usTimeHasCome_ False
     pure $ when timeHasCome action
 
-getUpdateResult :: MonadUnliftIO m => UpdateState m a -> m a
+getUpdateResult :: (MonadUnliftIO m) => UpdateState m a -> m a
 getUpdateResult us@UpdateState {..} = do
   onceOnTimeHasCome us $ do
     writeIORef usLastResult_ =<< usUpdateAction_ =<< readIORef usLastResult_
