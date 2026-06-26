@@ -24,11 +24,11 @@ jobs:
     steps:
       - name: Extract the tested GHC versions
         id: set-matrix
-        uses: kleidukos/get-tested@v0.1.7.1
+        uses: kleidukos/get-tested@v0.1.9.1
         with:
           cabal-file: auto-update-unliftio.cabal
           ubuntu-version: "latest"
-          version: 0.1.7.1
+          version: 0.1.9.1
 
   test:
     if: ( ( github.event_name == 'push' )
@@ -44,15 +44,15 @@ jobs:
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
-    - uses: haskell-actions/setup@v2.7
+    - uses: haskell-actions/setup@v2.11
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: '3.0'
 
     - name: Cache
-      uses: actions/cache@v3
+      uses: actions/cache@v5
       env:
         cache-name: cache-cabal
       with:
