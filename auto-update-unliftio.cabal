@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               auto-update-unliftio
-version:            0.1.0.0
+version:            0.1.0
 synopsis:           auto-update unlifted to MonadUnliftIO
 description:        Efficiently run periodic, on-demand actions, in instances of [MonadUnliftIO](https://hackage-content.haskell.org/package/unliftio-core/docs/Control-Monad-IO-Unlift.html#t:MonadUnliftIO)
 license:            BSD-3-Clause
